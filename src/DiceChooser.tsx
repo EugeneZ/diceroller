@@ -24,7 +24,12 @@ export default function DiceChooser({ children, onChoose }: Props) {
       {open ? (
         <div style={{ position: "absolute" }}>
           {allDice.map((die) => (
-            <button onClick={() => {onChoose(die); setOpen(false)}}>
+            <button
+              onClick={() => {
+                onChoose(die);
+                setOpen(false);
+              }}
+            >
               <Die die={die} />
             </button>
           ))}

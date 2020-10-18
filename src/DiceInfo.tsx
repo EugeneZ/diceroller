@@ -16,19 +16,22 @@ export default function DiceInfo({ dice }: Props) {
   const diceSet = React.useMemo(() => playerDiceToDiceSet(dice), [dice]);
   const stats = React.useMemo(
     () => ({
-      skulls: 
-        [1, 2, 3, 4, 5].map((i) => getOddsOfSuccess(diceSet, { skull: i }, 1) || ['?']),
-      
-      shields: 
-        [1, 2, 3, 4, 5].map((i) => getOddsOfSuccess(diceSet, { shield: i }, 1) || ['?']),
+      skulls: [1, 2, 3, 4, 5].map(
+        (i) => getOddsOfSuccess(diceSet, { skull: i }, 1) || ["?"]
+      ),
 
-      bolts: 
-        [1, 2, 3, 4, 5].map((i) => getOddsOfSuccess(diceSet, { bolt: i }, 1) || ['?']),
+      shields: [1, 2, 3, 4, 5].map(
+        (i) => getOddsOfSuccess(diceSet, { shield: i }, 1) || ["?"]
+      ),
+
+      bolts: [1, 2, 3, 4, 5].map(
+        (i) => getOddsOfSuccess(diceSet, { bolt: i }, 1) || ["?"]
+      ),
     }),
     [diceSet]
   );
 
-  const getMaximizeDice = (result: [number, string[] | null][])=>{
+  const getMaximizeDice = (result: [number, string[] | null][]) => {
     for (let i = result.length - 1; i >= 0; i--) {
       const test = result[i][1];
       if (test) {
@@ -36,11 +39,18 @@ export default function DiceInfo({ dice }: Props) {
       }
     }
   };
-  const maximizeSkullDice = React.useMemo(()=>getMaximizeDice(stats.skulls),[stats])
-  const maximizeShieldDice = React.useMemo(()=>getMaximizeDice(stats.shields),[stats])
-  const maximizeBoltDice   = React.useMemo(()=>getMaximizeDice(stats.bolts),[stats])
+  const maximizeSkullDice = React.useMemo(() => getMaximizeDice(stats.skulls), [
+    stats,
+  ]);
+  const maximizeShieldDice = React.useMemo(
+    () => getMaximizeDice(stats.shields),
+    [stats]
+  );
+  const maximizeBoltDice = React.useMemo(() => getMaximizeDice(stats.bolts), [
+    stats,
+  ]);
 
-  console.log(stats)
+  console.log(stats);
   return (
     <span
       role="img"
@@ -51,7 +61,15 @@ export default function DiceInfo({ dice }: Props) {
     >
       ❓
       {open && (
-        <table style={{ position: "absolute", backgroundColor: 'white', border: '1px solid black', left: 0, zIndex: 5 }}>
+        <table
+          style={{
+            position: "absolute",
+            backgroundColor: "white",
+            border: "1px solid black",
+            left: 0,
+            zIndex: 5,
+          }}
+        >
           <thead>
             <tr>
               <th> </th>
@@ -73,7 +91,13 @@ export default function DiceInfo({ dice }: Props) {
               <td>{stats.skulls[2][0]}</td>
               <td>{stats.skulls[3][0]}</td>
               <td>{stats.skulls[4][0]}</td>
-              <td><div style={{ display: 'flex' }}>{maximizeSkullDice?.map((die) => <Die tiny die={die as PlayerDie}/>)}</div></td>
+              <td>
+                <div style={{ display: "flex" }}>
+                  {maximizeSkullDice?.map((die) => (
+                    <Die tiny die={die as PlayerDie} />
+                  ))}
+                </div>
+              </td>
             </tr>
             <tr>
               <td>
@@ -84,7 +108,13 @@ export default function DiceInfo({ dice }: Props) {
               <td>{stats.shields[2][0]}</td>
               <td>{stats.shields[3][0]}</td>
               <td>{stats.shields[4][0]}</td>
-              <td><div style={{ display: 'flex' }}>{maximizeShieldDice?.map((die) => <Die tiny die={die as PlayerDie}/>)}</div></td>
+              <td>
+                <div style={{ display: "flex" }}>
+                  {maximizeShieldDice?.map((die) => (
+                    <Die tiny die={die as PlayerDie} />
+                  ))}
+                </div>
+              </td>
             </tr>
             <tr>
               <td>
@@ -95,7 +125,13 @@ export default function DiceInfo({ dice }: Props) {
               <td>{stats.bolts[2][0]}</td>
               <td>{stats.bolts[3][0]}</td>
               <td>{stats.bolts[4][0]}</td>
-              <td><div style={{ display: 'flex' }}>{maximizeBoltDice?.map((die) => <Die tiny die={die as PlayerDie}/>)}</div></td>
+              <td>
+                <div style={{ display: "flex" }}>
+                  {maximizeBoltDice?.map((die) => (
+                    <Die tiny die={die as PlayerDie} />
+                  ))}
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

@@ -14,7 +14,22 @@ export default function DiceConfigurator({ dice, onChange }: Props) {
       {dice.map((orDice, i) => (
         <div>
           {orDice.map((die, j) => (
-            <div onClick={()=>onChange(dice.map((el, k) => { if (k !== i) return el; const newEl = el.slice(); newEl.splice(j, 1); return newEl;}).filter(el => el.length))}><Die die={die} /></div>
+            <div
+              onClick={() =>
+                onChange(
+                  dice
+                    .map((el, k) => {
+                      if (k !== i) return el;
+                      const newEl = el.slice();
+                      newEl.splice(j, 1);
+                      return newEl;
+                    })
+                    .filter((el) => el.length)
+                )
+              }
+            >
+              <Die die={die} />
+            </div>
           ))}
           <DiceChooser
             onChoose={(die) =>

@@ -15,23 +15,25 @@ interface Props {
 export default function Quest({ quest, diceSets, onChange }: Props) {
   return (
     <Box title={quest.name}>
-      <div style={{ display: 'flex'}}>
+      <div style={{ display: "flex" }}>
         <div>
-          <Skull/>
+          <Skull />
           {quest.skulls}
         </div>
         <div>
-          <Shield/>
+          <Shield />
           {quest.shields}
         </div>
         <div>
-          <Bolt/>
+          <Bolt />
           {quest.bolts}
         </div>
       </div>
       <div>
-          {diceSets.map(diceSet => <Result diceSet={diceSet} quest={quest}/>)}
-        </div>
+        {diceSets.map((diceSet) => (
+          <Result diceSet={diceSet} quest={quest} />
+        ))}
+      </div>
     </Box>
   );
 }

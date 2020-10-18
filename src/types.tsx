@@ -1,4 +1,10 @@
-export type PlayerDie = 'white' | 'orange' | 'blue' | 'red' | 'purple' | 'black';
+export type PlayerDie =
+  | "white"
+  | "orange"
+  | "blue"
+  | "red"
+  | "purple"
+  | "black";
 
 export type PlayerDice = Array<Array<PlayerDie>>;
 
