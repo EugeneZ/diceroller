@@ -1,6 +1,8 @@
 import React from "react";
 import DiceSetList from "./DiceSetList";
+import getNewId from "./getNewId";
 import QuestsList from "./QuestsList";
+import sortById from "./sortById";
 import useAppState, { AppState, initialState } from "./useAppState";
 
 function App() {
@@ -14,7 +16,10 @@ function App() {
           if (name) {
             setAppState((previousAppState: AppState) => ({
               ...previousAppState,
-              diceSets: [...previousAppState.diceSets, { name, dice: [] }],
+              diceSets: [
+                ...previousAppState.diceSets,
+                { id: getNewId(), name, dice: [] },
+              ].sort(sortById),
             }));
           }
         }}
@@ -39,7 +44,7 @@ function App() {
           if (boltsString === null) {
             return;
           }
-          const minSuccessesString = prompt("Number of successes required?")
+          const minSuccessesString = prompt("Number of successes required?");
           if (minSuccessesString === null) {
             return;
           }
@@ -55,7 +60,10 @@ function App() {
 
           setAppState((previousAppState: AppState) => ({
             ...previousAppState,
-            quests: [...previousAppState.quests, { name, skulls, shields, bolts, minSuccesses }]
+            quests: [
+              ...previousAppState.quests,
+              { id: getNewId(), name, skulls, shields, bolts, minSuccesses },
+            ].sort(sortById),
           }));
         }}
       >
@@ -77,19 +85,21 @@ function App() {
             ...previousAppState,
             diceSets: previousAppState.diceSets
               .filter((set) => set.name !== newDiceSet.name)
-              .concat(newDiceSet),
+              .concat(newDiceSet)
+              .sort(sortById),
           }))
         }
       />
       <QuestsList
         quests={appState.quests}
         diceSets={appState.diceSets}
-        onChange={(newQuest)=>
+        onChange={(newQuest) =>
           setAppState((previousAppState) => ({
             ...previousAppState,
             quests: previousAppState.quests
               .filter((set) => set.name !== newQuest.name)
-              .concat(newQuest),
+              .concat(newQuest)
+              .sort(sortById),
           }))
         }
       />
