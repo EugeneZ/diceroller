@@ -1,10 +1,11 @@
 import React from "react";
 import Box from "./Box";
+import DiceChooser from "./DiceChooser";
 import Bolt from "./icons/Bolt";
 import Shield from "./icons/Shield";
 import Skull from "./icons/Skull";
 import Result from "./Result";
-import { NamedDiceSet, NamedQuest } from "./types";
+import { NamedDiceSet, NamedQuest, PlayerDie } from "./types";
 
 interface Props {
   quest: NamedQuest;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function Quest({ quest, diceSets, onChange }: Props) {
+  const [optionalDie, setOptionalDie] = React.useState<PlayerDie | null>(null);
   return (
     <Box title={quest.name}>
       <div style={{ display: "flex" }}>
@@ -31,8 +33,11 @@ export default function Quest({ quest, diceSets, onChange }: Props) {
       </div>
       <div>
         {diceSets.map((diceSet) => (
-          <Result diceSet={diceSet} quest={quest} />
+          <Result diceSet={diceSet} quest={quest} optionalDie={optionalDie}/>
         ))}
+      </div>
+      <div>
+        <DiceChooser onChoose={die => setOptionalDie(die)}>Set Optional Die</DiceChooser>
       </div>
     </Box>
   );
